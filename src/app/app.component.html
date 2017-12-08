@@ -1,0 +1,64 @@
+<h1>Nouveau compte</h1>
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form [formGroup]="newInscriptionForm">
+        <div class="form-group" [ngClass]="{'error': firstName?.invalid && firstName?.touched}">
+          <label>FirstName: </label>
+          <em *ngIf="firstName?.invalid && (firstName?.touched)">Ce champ est requis</em>
+          <input type="text" formControlName="firstName" class="form-control">
+        </div>
+        <div class="form-group"  [ngClass]="{'error': lastName?.invalid && lastName?.touched}">
+          <label>LastName: </label>
+          <em *ngIf="lastName?.invalid && (lastName?.touched)">Veuillez remplir ce champ.</em>
+          <input type="text" formControlName="lastName" required class="form-control">
+        </div>
+        <div class="form-group" [ngClass]="{'error': address?.invalid && address?.touched}">
+          <label>Adresse email: </label>
+          <em *ngIf="address?.invalid && (address?.touched)">Veuillez remplir ce champ afin de vous envoyer le nouvelles conseilles.</em>
+          <input type="text" required formControlName="address" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Date de naissance: </label>
+          <em *ngIf="birthday?.invalid && (birthday?.touched)">Veuillez saisir votre date de naissance.</em>
+          <input type="text" [ngClass]="{'error': birthday?.invalid && birthday?.touched}"
+                 class="form-control"
+                 #dp="bsDatepicker"
+                 formControlName="birthday"
+                 (ngModel)="birthday"
+                 [outsideClick]="true"
+                 bsDatepicker [(bsValue)]="startDate">
+        </div>
+        <div class="form-group" [ngClass]="{'error': sex?.invalid && sex?.touched}">
+          <label class="control-label">Saisir votre sexe:</label>
+          <em *ngIf="sex?.invalid && (sex?.touched)">Veuillez nous indiquer votre sexe.</em>
+          <select required formControlName="sex" class="form-control">
+            <option value="default">Sexe </option>
+            <option>Homme</option>
+            <option>Femme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tapez votre mot de passe</label>
+          <em *ngIf="password?.invalid && password?.touched && password?.errors.required"> Ce champ est requis, veuillez tapez un mot de passe minimum 8 caractére.</em>
+          <em *ngIf="password?.invalid && password?.touched && password?.errors.minlength">8 caractére minimum sont requis.</em>
+          <input type="password" class="form-control" formControlName="password">
+        </div>
+        <div class="form-group">
+          <label>Confirmez votre mot de passe</label>
+          <em *ngIf="pwd_confirm.dirty && password.value != pwd_confirm.value">Veuillez vérifier votre confirmation, elle ne correspond pas à votre mot de passe.</em>
+          <input type="password" class="form-control" formControlName="pwd_confirm">
+        </div>
+        <button class="btn btn-primary" (click)="submit(newInscriptionForm.value)"  type="submit">Inscrire</button>
+      </form>
+    </div>
+    <div class="col-md-4" *ngIf="imageUrl">
+      <img [src]="imageUrl">
+    </div>
+  </div>
+</div>
+
+
+
+
